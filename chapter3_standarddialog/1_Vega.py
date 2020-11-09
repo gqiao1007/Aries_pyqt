@@ -12,7 +12,7 @@ class Example(QWidget):
 
     def initUI(self):
         self.setGeometry(500, 500, 500, 550)
-        self.setWindowTitle('关注微信公众号：学点编程吧--标准输入对话框')
+        self.setWindowTitle('Vega')
 
         self.lb1 = QLabel('姓名：', self)
         self.lb1.move(20, 20)

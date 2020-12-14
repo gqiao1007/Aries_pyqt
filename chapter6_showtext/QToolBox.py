@@ -50,6 +50,7 @@ class Example(QToolBox):
         ]
 
         for item in favorites:
+
             groupbox = QGroupBox()
             vlayout = QVBoxLayout(groupbox)
             vlayout.setAlignment(Qt.AlignCenter)# 居中
@@ -62,9 +63,11 @@ class Example(QToolBox):
                 toolButton.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)# 文字在图标的下面
                 vlayout.addWidget(toolButton)
                 name = category['des']
+                print(name)
                 toolButton.clicked.connect(self.run)
                 # 内置小循环把那么多的按钮放到窗口中，我真是个天才！
 
+            # 通过判断item的其中一个元素，得到的最后一个name值
             if name == '雅虎搜索':
                 self.addItem(groupbox, '搜索引擎')
             else:

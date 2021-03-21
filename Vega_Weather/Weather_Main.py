@@ -65,6 +65,8 @@ class Weather(QMainWindow, Ui_MainWindow):
         msg.weathernumber.setText(weather_temperature)
         msg.weatherwhat.setText(weather)
 
+        msg.label_pix.setPixmap(QPixmap("./res/"+"1.png"))
+
         update = "天气最新更新时间--" + last_update[11:16]
         # # 只取更新时间的具体时间（几点几分），否则还有某年某月等内容
         #
@@ -81,14 +83,40 @@ class Weather(QMainWindow, Ui_MainWindow):
         msg2 = Ui_Form()
         b = QWidget()
         msg2.setupUi(b)
+        msg2.label.setText(weather0["text_day"])
+        msg2.label_9.setPixmap(QPixmap("./res/" + weather0["code_day"] + ".png"))
+        msg2.label_4.setText(weather0["text_night"])
+        msg2.label_10.setPixmap(QPixmap("./res/" + weather0["code_night"] + ".png"))
+        msg2.label_11.setText(weather0["high"])
+        msg2.label_12.setText(weather0["low"])
+        msg2.label_13.setText(weather0["wind_direction"])
+        msg2.label_14.setText(weather0["wind_scale"])
+
 
         msg3 = Ui_Form()
         c = QWidget()
         msg3.setupUi(c)
+        msg3.label.setText(weather1["text_day"])
+        msg3.label_9.setPixmap(QPixmap("./res/" + weather1["code_day"] + ".png"))
+        msg3.label_4.setText(weather1["text_night"])
+        msg3.label_10.setPixmap(QPixmap("./res/" + weather1["code_night"] + ".png"))
+        msg3.label_11.setText(weather1["high"])
+        msg3.label_12.setText(weather1["low"])
+        msg3.label_13.setText(weather1["wind_direction"])
+        msg3.label_14.setText(weather1["wind_scale"])
 
         msg4 = Ui_Form()
         d = QWidget()
         msg4.setupUi(d)
+        msg4.label.setText(weather2["text_day"])
+        msg4.label_9.setPixmap(QPixmap("./res/" + weather2["code_day"] + ".png"))
+        msg4.label_4.setText(weather2["text_night"])
+        msg4.label_10.setPixmap(QPixmap("./res/" + weather2["code_night"] + ".png"))
+        msg4.label_11.setText(weather2["high"])
+        msg4.label_12.setText(weather2["low"])
+        msg4.label_13.setText(weather2["wind_direction"])
+        msg4.label_14.setText(weather2["wind_scale"])
+
 
         return b,c,d,weather0["date"], weather1["date"], weather2["date"]
 

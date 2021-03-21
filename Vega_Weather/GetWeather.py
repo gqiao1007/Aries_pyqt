@@ -17,8 +17,8 @@ class GetWeatherInfo():
         else:
             self.city = "guangzhou"
         # city表示的是我们查询的城市
-        self.real_time = "https://api.seniverse.com/v3/weather/now.json?key=SE2ZrQ-qK-OjeTGo5&location=beijing&language=zh-Hans&unit=c"
-        self.nearly_3_days = "https://api.seniverse.com/v3/weather/daily.json?key=SE2ZrQ-qK-OjeTGo5&location=beijing&language=zh-Hans&unit=c&start=0&days=5"
+        self.real_time = "https://api.seniverse.com/v3/weather/now.json?key=SE2ZrQ-qK-OjeTGo5&location="+self.city+"&language=zh-Hans&unit=c"
+        self.nearly_3_days = "https://api.seniverse.com/v3/weather/daily.json?key=SE2ZrQ-qK-OjeTGo5&location="+self.city+"&language=zh-Hans&unit=c&start=0&days=5"
 
     def getweather(self):
         if self.flag == 0:

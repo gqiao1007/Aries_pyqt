@@ -12,8 +12,8 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
-        MainWindow.setObjectName("Weather")
-        MainWindow.resize(800, 600)
+        MainWindow.setObjectName("MainWindow")
+        MainWindow.resize(1003, 819)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.label = QtWidgets.QLabel(self.centralwidget)
@@ -51,7 +51,7 @@ class Ui_MainWindow(object):
         self.pushButton.setFont(font)
         self.pushButton.setObjectName("pushButton")
         self.tabWidget = QtWidgets.QTabWidget(self.centralwidget)
-        self.tabWidget.setGeometry(QtCore.QRect(20, 180, 481, 311))
+        self.tabWidget.setGeometry(QtCore.QRect(20, 180, 661, 601))
         self.tabWidget.setObjectName("tabWidget")
         self.tab = QtWidgets.QWidget()
         self.tab.setObjectName("tab")
@@ -84,3 +84,4 @@ if __name__ == "__main__":
     Ui_MainWindow().setupUi(Mainwindow)
     Mainwindow.show()
     sys.exit(app.exec_())
+

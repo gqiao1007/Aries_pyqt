@@ -188,6 +188,8 @@ class Ui_Dialog(object):
 
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
+        self.pushButton_confirm.clicked.connect(Dialog.accept)
+        self.pushButton_cancal.clicked.connect(Dialog.reject)
 
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate

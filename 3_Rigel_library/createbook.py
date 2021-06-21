@@ -6,6 +6,7 @@ from PyQt5.QtWidgets import QApplication
 from PyQt5.QtCore import pyqtSlot, pyqtSignal
 from getbookinfo import GetBookInfo
 from PyQt5.QtGui import QPixmap
+from datamanage import DataMana
 import sys
 
 
@@ -95,6 +96,51 @@ class CreateBook(QDialog,Ui_Dialog):
         if f[0]:
             self.label_pixmap.setPixmap(QPixmap(f[0]))
             self.img = f[0]
+
+    def reject(self):
+        """
+        点击取消后
+        """
+        self.done(-1)
+
+    def accept(self):
+        if self.lineEdit_isbn.text() == "":
+            QMessageBox.information(self, "提示", "ISBN号为空！")
+        elif self.lineEdit_bookname.text() == "":
+            QMessageBox.information(self, "提示", "书名为空！")
+        elif self.lineEdit_author.text() == "":
+            QMessageBox.information(self, "提示", "作者为空！")
+        elif self.img == "":
+            QMessageBox.information(self, "提示", "新增照片失败")
+        else:
+            isbn = self.lineEdit_isbn.text()
+            subtitle = self.lineEdit_bookname.text()
+            author = self.lineEdit_author.text()
+            pubdate = self.lineEdit_year.text()
+            classification = self.comboBox.currentText()
+            publisher = self.lineEdit_present.text()
+            price = self.lineEdit_price.text()
+            pages = self.lineEdit_page.text()
+            summary = self.textEdit.toPlainText()
+            country = self.country
+            img = self.img
+            book = self.get_bookinfo_local(isbn, subtitle, author, pubdate, classification, publisher, price, pages, summary, img, country)
+            dm = DataMana()
+            r = dm.insert_db(book)
+            if r > 0:
+                self.done(1)
+            else:
+                QMessageBox.information(self, "提示", "新增图书失败，貌似已经有相同的ISBN图书存在了！")
+
+    def get_bookinfo_local(self, isbn, subtitle, author, pubdate, classification, publisher, price, pages, summary, img, country):
+        """
+        返回图书信息
+        """
+        book = {"isbn" : isbn, "subtitle" : subtitle, "author" : author, "pubdate" : pubdate, "classification" : classification,
+                "publisher" : publisher, "price" : price, "pages" : pages, "summary" : summary, "img" : img, "country" : country
+                }
+        return book
+
 
 
 

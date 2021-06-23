@@ -55,6 +55,7 @@ class Ui_L_MainUi(object):
         self.tableWidget.setFocusPolicy(QtCore.Qt.ClickFocus)
         self.tableWidget.setLayoutDirection(QtCore.Qt.LeftToRight)
         self.tableWidget.setAutoScrollMargin(0)
+        self.tableWidget.setDragDropOverwriteMode(False)
         self.tableWidget.setGridStyle(QtCore.Qt.DashLine)
         self.tableWidget.setObjectName("tableWidget")
         self.tableWidget.setColumnCount(7)
@@ -269,11 +270,3 @@ class Ui_L_MainUi(object):
         self.label_price.setText(_translate("L_MainUi", "定价"))
         self.label_20.setText(_translate("L_MainUi", "内容介绍"))
         self.pushButton_addnewbook.setText(_translate("L_MainUi", "新建图书档案"))
-
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    Mainwindow = QtWidgets.QMainWindow()
-    Ui_L_MainUi().setupUi(Mainwindow)
-    Mainwindow.show()
-    sys.exit(app.exec_())

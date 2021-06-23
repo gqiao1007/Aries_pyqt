@@ -23,11 +23,18 @@ class MainBook(QMainWindow, Ui_L_MainUi):
 
     def showtable(self):
         self.booklist = self.bookdb.loadbook()
+        #真实行数
         list_rows = len(self.booklist)
+        #table_rows 当前行数
         table_rows = self.tableWidget.rowCount()
 
         if table_rows == 0 and list_rows > 0:
              self.selectTable(self.booklist)
+
+        if table_rows >0 and list_rows > 0:
+            self.tableWidget.clear()
+            self.selectTable(self.booklist)
+
 
     def selectTable(self, booklist):
         for i, book in enumerate(booklist):
@@ -90,6 +97,30 @@ class MainBook(QMainWindow, Ui_L_MainUi):
         r = bookinfo.exec_()
         if r > 0:
             self.showtable()
+
+    @pyqtSlot(int, int)
+    def on_tableWidget_cellClicked(self, row, column):
+        self.label_country.setText(self.booklist[row]["country"])
+        self.label_ISBN.setText(self.booklist[row]["isbn"])
+        self.label_bookname.setText(self.booklist[row]["subtitle"])
+        self.label_author.setText(self.booklist[row]["author"])
+        self.label_present.setText(self.booklist[row]["publisher"])
+        self.label_price.setText(self.booklist[row]["price"])
+        self.label_Pyear.setText(self.booklist[row]["pubdate"])
+        self.label_pagenum.setText(self.booklist[row]["pages"])
+        self.textBrowser.setText(self.booklist[row]["summary"])
+        img = self.booklist[row]["img"]
+        print(img)
+        imgname = './res/book/' + img.split("/")[-1]
+        self.label.setPixmap(QPixmap(imgname))
+        self.label.setScaledContents(True)
+
+    @pyqtSlot()
+    def on_pushButton_search_clicked(self):
+        searchtext = self.lineEdit.text()
+        if searchtext:
+            pass
+
 
 
 

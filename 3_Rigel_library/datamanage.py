@@ -25,9 +25,9 @@ class DataMana:
                 return -1
         else:
             self.books.append(bookinfo)
-            # with open("book.dat", "wb") as f:
-            #     pickle.dump(self.books, f)
-            # return 1
-            with open("book.dat", "ab+") as f:
-                pickle.dump(bookinfo, f)
+            with open("book.dat", "wb") as f:
+                pickle.dump(self.books, f)
             return 1
+            # with open("book.dat", "ab+") as f:
+            #     pickle.dump(bookinfo, f)
+            # return 1

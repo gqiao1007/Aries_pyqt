@@ -236,9 +236,14 @@ class Ui_L_MainUi(object):
         self.retranslateUi(L_MainUi)
         QtCore.QMetaObject.connectSlotsByName(L_MainUi)
 
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap("res/logo.PNG"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        L_MainUi.setWindowIcon(icon)
+
+        self.pushButton_save.setEnabled(False)
     def retranslateUi(self, L_MainUi):
         _translate = QtCore.QCoreApplication.translate
-        L_MainUi.setWindowTitle(_translate("L_MainUi", "MainWindow"))
+        L_MainUi.setWindowTitle(_translate("L_MainUi", "小休闲图书管理"))
         self.comboBox.setItemText(0, _translate("L_MainUi", "ISBN"))
         self.comboBox.setItemText(1, _translate("L_MainUi", "书名"))
         self.comboBox.setItemText(2, _translate("L_MainUi", "作者"))

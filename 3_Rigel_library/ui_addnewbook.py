@@ -191,9 +191,12 @@ class Ui_Dialog(object):
         self.pushButton_confirm.clicked.connect(Dialog.accept)
         self.pushButton_cancal.clicked.connect(Dialog.reject)
 
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap("res/logo.PNG"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        Dialog.setWindowIcon(icon)
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
-        Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
+        Dialog.setWindowTitle(_translate("Dialog", "新增图书档案"))
         self.label_isbn.setText(_translate("Dialog", "*ISBN"))
         self.label_bookname.setText(_translate("Dialog", "*书名"))
         self.label_author.setText(_translate("Dialog", "*作者"))

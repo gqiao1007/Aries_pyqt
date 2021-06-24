@@ -31,3 +31,26 @@ class DataMana:
             # with open("book.dat", "ab+") as f:
             #     pickle.dump(bookinfo, f)
             # return 1
+    def query_db(self, isbn= "", author="", bookname=""):
+        self.books = self.loadbook()
+        if isbn:
+            for i,book in enumerate(self.books):
+                if book["isbn"] == isbn:
+                    return i
+            else:
+                return -1
+
+        if author:
+            for i,book in enumerate(self.books):
+                if book["author"] == author:
+                    return i
+            else:
+                return -1
+
+        if bookname:
+            # 按照书名查找
+            for i, book in enumerate(self.books):
+                if book["subtitle"] == bookname:
+                    return i
+            else:
+                return -1

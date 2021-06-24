@@ -110,7 +110,6 @@ class MainBook(QMainWindow, Ui_L_MainUi):
         self.label_pagenum.setText(self.booklist[row]["pages"])
         self.textBrowser.setText(self.booklist[row]["summary"])
         img = self.booklist[row]["img"]
-        print(img)
         imgname = './res/book/' + img.split("/")[-1]
         self.label.setPixmap(QPixmap(imgname))
         self.label.setScaledContents(True)
@@ -119,7 +118,56 @@ class MainBook(QMainWindow, Ui_L_MainUi):
     def on_pushButton_search_clicked(self):
         searchtext = self.lineEdit.text()
         if searchtext:
-            pass
+            if self.comboBox.currentText() == "ISBN":
+                index = self.bookdb.query_db(isbn=searchtext)
+            elif self.comboBox.currentText() == "书名":
+                index = self.bookdb.query_db(bookname=searchtext)
+            elif self.comboBox.currentText() == "作者":
+                print("1", searchtext)
+                index = self.bookdb.query_db(author=searchtext)
+            if index > -1:
+                self.tableWidget.selectRow(index)
+            else:
+                QMessageBox.information(self, "提示", "Sorry。貌似没有找到你要的书，换个词试试吧！")
+        else:
+            QMessageBox.information(self,"提示", "没有关键词！")
+
+    @pyqtSlot()
+    def on_pushButton_save_clicked(self):
+
+        pass
+
+    @pyqtSlot(int, int)
+    def on_tableWidget_cellDoubleClicked(self, row, column):
+
+        if column == 0:
+            # countries = ["中", "英", "日", "俄", "美"]
+            com_country = QComboBox()
+
+            com_country.addItem(QIcon("./res/countries/china.png"),"中")
+            com_country.addItem(QIcon("./res/countries/english.png"),"英")
+            com_country.addItem(QIcon("./res/countries/japan.png"),"日")
+            com_country.addItem(QIcon("./res/countries/russian.png"),"俄")
+            com_country.addItem(QIcon("./res/countries/usa.png"),"美")
+            old_classification = self.booklist[row]["country"]
+            com_country.setCurrentText(old_classification)
+            self.tableWidget.setCellWidget(row, 0, com_country)
+            # com_country.setEditable(False)
+
+        if column == 5:
+            com = QComboBox()
+            classifications = ["", "马克思主义、列宁主义、毛泽东思想、邓小平理论", "哲学、宗教", "社会科学总论",
+            "政治、法律", "军事", "经济", "文化、科学、教育、体育", "语言、文字", "文学",
+            "艺术", "历史、地理", "自然科学总论", "数理科学和化学", "天文学、地球科学", "生物科学",
+            "医药、卫生", "农业科学", "工业技术", "交通运输", "航空、航天", "环境科学、劳动保护科学（安全科学）",
+            "综合性图书"]
+            com.addItems(classifications)
+            # com.setEditable(True)
+            old_classification = self.booklist[row]["classification"]
+            print(old_classification)
+            com.setCurrentText(old_classification)
+            self.tableWidget.setCellWidget(row,5,com)
+        self.pushButton_save.setEnabled(True)
 
 
 

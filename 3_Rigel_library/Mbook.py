@@ -164,10 +164,84 @@ class MainBook(QMainWindow, Ui_L_MainUi):
             com.addItems(classifications)
             # com.setEditable(True)
             old_classification = self.booklist[row]["classification"]
-            print(old_classification)
             com.setCurrentText(old_classification)
             self.tableWidget.setCellWidget(row,5,com)
         self.pushButton_save.setEnabled(True)
+
+    @pyqtSlot(int, int, int, int)
+    def on_tableWidget_currentCellChanged(self, currentRow, currentColumn, previousRow, previousColumn):
+        """
+        :param currentRow:  当面选中坐标行
+        :param currentColumn:
+        :param previousRow:
+        :param previousColumn:
+        :return:
+        """
+        if previousColumn == 1:
+            isbn = self.tableWidget.item(previousRow, previousColumn).text()
+            self.booklist[previousRow]["isbn"] = isbn
+        if previousColumn == 2:
+            bookname = self.tableWidget.item(previousRow, previousColumn).text()
+            self.booklist[previousRow]["subtitle"] = bookname
+        if previousColumn == 3:
+            author = self.tableWidget.item(previousRow, previousColumn).text()
+            self.booklist[previousRow]["author"] = author
+        if previousColumn == 4:
+            publisher = self.tableWidget.item(previousRow, previousColumn).text()
+            self.booklist[previousRow]["publisher"] = publisher
+        if previousColumn == 6:
+            price = self.tableWidget.item(previousRow, previousColumn).text()
+            self.booklist[previousRow]["price"] = price
+
+        else:
+            previous_item = self.tableWidget.cellWidget(previousRow, previousColumn)
+            if previous_item:
+                clt = previous_item.currentText()
+                self.tableWidget.removeCellWidget(previousRow, previousColumn)
+                if previousColumn == 5:
+                    cl = QTableWidgetItem(clt)
+                    cl.setTextAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
+                    self.tableWidget.setItem(previousRow, 5, cl)
+                    self.booklist[previousRow]["classification"] = clt
+
+                if previousColumn == 0:
+                    if clt == "中":
+                        countryIcon = QIcon("./res/countries/china.png")
+                    elif clt == "英":
+                        countryIcon = QIcon("./res/countries/english.png")
+                    elif clt == "日":
+                        countryIcon = QIcon("./res/countries/japan.png")
+                    elif clt == "俄":
+                        countryIcon = QIcon("./res/countries/russian.png")
+                    elif clt == "美":
+                        countryIcon = QIcon("./res/countries/usa.png")
+                    else:
+                        countryIcon = QIcon("./res/countries/default.png")
+
+                    country_item = QTableWidgetItem(countryIcon, clt)
+                    country_item.setTextAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
+                    self.tableWidget.setItem(previousRow, 0, country_item)
+                    # 修改国家时，我们会调出国家的下拉框供选择
+                    self.booklist[previousRow]["country"] = clt
+
+    @pyqtSlot()
+    def on_pushButton_save_clicked(self):
+
+        self.bookdb.save_db(self.booklist)
+        QMessageBox.information(self, "提示", "保存成功！")
+        self.pushButton_save.setEnabled(False)
+
+    # def contextMenuEvent(self, event):
+    #     pmenu = QMenu
+    #     pdeleAct = QAction("删除行", self.tableWidget)
+    #     pmenu.addAction(pdeleAct)
+    #     pdeleAct.triggered.connect(self.)
+
+
+
+
+
+
 
 
 

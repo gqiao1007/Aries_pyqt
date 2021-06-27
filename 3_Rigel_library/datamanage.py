@@ -54,3 +54,8 @@ class DataMana:
                     return i
             else:
                 return -1
+
+    def save_db(self, bookinfo):
+        with open("book.dat", "wb") as f:
+            pickle.dump(bookinfo, f)
+

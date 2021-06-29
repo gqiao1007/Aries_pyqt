@@ -231,11 +231,29 @@ class MainBook(QMainWindow, Ui_L_MainUi):
         QMessageBox.information(self, "提示", "保存成功！")
         self.pushButton_save.setEnabled(False)
 
-    # def contextMenuEvent(self, event):
-    #     pmenu = QMenu
-    #     pdeleAct = QAction("删除行", self.tableWidget)
-    #     pmenu.addAction(pdeleAct)
-    #     pdeleAct.triggered.connect(self.)
+    def contextMenuEvent(self, event):
+        pmenu = QMenu(self)
+        pdeleAct = QAction("删除行", self.tableWidget)
+        pmenu.addAction(pdeleAct)
+        pdeleAct.triggered.connect(self.deleterow)
+        pmenu.popup(self.mapToGlobal(event.pos()))
+
+    def deleterow(self):
+        rr = QMessageBox.warning(self, "注意", "删除可不能恢复了哦！", QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+        if rr == QMessageBox.Yes:
+            curow  = self.tableWidget.selectedItems()
+            rows = []
+            for i in curow:
+                rows.append(i.row())
+            self.removeRows(rows, )
+
+
+    def removeRows(self, rows, isdel_list = 0):
+        rows.reverse()
+        for i in rows:
+            self.tableWidget.removeRow(i)
+            del self.booklist[i]
+        self.bookdb.save_db(self.booklist)
 
 
 
